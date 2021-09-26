@@ -75,10 +75,40 @@ def deit_tiny_patch16_224(pretrained=False, **kwargs):
 
 
 @register_model
+def deit_tiny_patch16_224_relu(pretrained=False, **kwargs):
+    model = VisionTransformer(
+        patch_size=16, embed_dim=192, depth=12, num_heads=3, mlp_ratio=4, qkv_bias=True,
+        norm_layer=partial(nn.LayerNorm, eps=1e-6), act_layer=nn.ReLU, **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        checkpoint = torch.hub.load_state_dict_from_url(
+            url="https://dl.fbaipublicfiles.com/deit/deit_tiny_patch16_224-a1311bcf.pth",
+            map_location="cpu", check_hash=True
+        )
+        model.load_state_dict(checkpoint["model"])
+    return model
+
+
+@register_model
 def deit_small_patch16_224(pretrained=False, **kwargs):
     model = VisionTransformer(
         patch_size=16, embed_dim=384, depth=12, num_heads=6, mlp_ratio=4, qkv_bias=True,
         norm_layer=partial(nn.LayerNorm, eps=1e-6), **kwargs)
+    model.default_cfg = _cfg()
+    if pretrained:
+        checkpoint = torch.hub.load_state_dict_from_url(
+            url="https://dl.fbaipublicfiles.com/deit/deit_small_patch16_224-cd65a155.pth",
+            map_location="cpu", check_hash=True
+        )
+        model.load_state_dict(checkpoint["model"])
+    return model
+
+
+@register_model
+def deit_small_patch16_224_relu(pretrained=False, **kwargs):
+    model = VisionTransformer(
+        patch_size=16, embed_dim=384, depth=12, num_heads=6, mlp_ratio=4, qkv_bias=True,
+        norm_layer=partial(nn.LayerNorm, eps=1e-6), act_layer=nn.ReLU, **kwargs)
     model.default_cfg = _cfg()
     if pretrained:
         checkpoint = torch.hub.load_state_dict_from_url(
