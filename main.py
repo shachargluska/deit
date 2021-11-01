@@ -174,6 +174,8 @@ def main(args):
 
     print(args)
 
+    if 'distilled' in args.model and args.distillation_type == 'none':
+        raise ValueError('Distilled models must be trained with distillation. use --distilation-type')
     if args.distillation_type != 'none' and args.finetune and not args.eval:
         raise NotImplementedError("Finetuning with distillation not yet supported")
 
