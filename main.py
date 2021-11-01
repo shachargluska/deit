@@ -23,6 +23,7 @@ from engine import train_one_epoch, evaluate
 from losses import DistillationLoss
 from samplers import RASampler
 import models
+import resmlp_models
 import utils
 
 
